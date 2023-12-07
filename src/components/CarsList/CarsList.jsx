@@ -1,13 +1,16 @@
+import { useDispatch } from "react-redux";
 import { ListItem } from "../listItem/listItem";
 import { List } from "./CarsList.styled";
-import { funcRequest } from "../../js/api";
+import { useEffect } from "react";
+import { fetchCars } from "../../redux/operations";
 
 export const CarsList = () => {
-  const getListAll = async () => {
-    const result = await funcRequest();
-    console.log(result.data);
-  };
-  getListAll();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCars()), [dispatch];
+  });
+
   return (
     <List>
       <ListItem />
