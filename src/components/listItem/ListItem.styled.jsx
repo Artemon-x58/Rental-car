@@ -58,7 +58,7 @@ export const DescriptionsItem = styled.p`
 export const ButtonItem = styled.button`
   width: 100%;
   padding: 12px 99.5px;
-  transition: background-color 0.3s;
+  transition: linear background-color 0.3s;
 
   border-radius: 12px;
   border-color: transparent;

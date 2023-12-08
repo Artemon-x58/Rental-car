@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import Modal from "react-modal";
 
-export const ModalWrapper = styled.div``;
+export const MyModalStyled = styled(Modal)``;
 
 export const IconModal = styled.svg``;
 

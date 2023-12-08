@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
   body {
@@ -41,5 +41,12 @@ img {
   max-width: 100%;
   height: auto;
 }
+`;
 
+export const Container = styled.div`
+  padding-top: 50px;
+  padding-left: 128px;
+  padding-right: 128px;
+  max-width: 1440px;
+  margin: 0 auto 100px;
 `;

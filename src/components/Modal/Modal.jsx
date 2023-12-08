@@ -9,13 +9,13 @@ import {
   IconUseModal,
   ImageModal,
   MakeModelYearModal,
-  ModalWrapper,
+  MyModalStyled,
   ParamsModal,
 } from "./Modal.styled";
 
-export const Modal = () => {
+export const MyModal = () => {
   return (
-    <ModalWrapper>
+    <MyModalStyled>
       <IconModal>
         <IconUseModal />
       </IconModal>
@@ -31,6 +31,6 @@ export const Modal = () => {
         </ConditionsItemModal>
       </ConditionsListModal>
       <ButtonModal>Rental car</ButtonModal>
-    </ModalWrapper>
+    </MyModalStyled>
   );
 };
