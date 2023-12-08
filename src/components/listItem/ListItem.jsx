@@ -13,8 +13,15 @@ import {
 } from "./ListItem.styled";
 
 import linkIconHeart from "../../icons/symbol-defs.svg";
+import { useDispatch } from "react-redux";
+import { addOrRemoveToFavorites } from "../../redux/favoritesSlice";
 
 export const ListItem = ({ car }) => {
+  const dispatch = useDispatch();
+
+  const handleFavoritesClick = () => {
+    dispatch(addOrRemoveToFavorites(car));
+  };
   const {
     img,
     make,
@@ -36,7 +43,7 @@ export const ListItem = ({ car }) => {
           backgroundSize: "cover",
         }}
       />
-      <SvgIcon>
+      <SvgIcon onClick={handleFavoritesClick}>
         <UseIcon href={`${linkIconHeart}#icon-heart`} />
       </SvgIcon>
       <PriceAndYearWrapper>

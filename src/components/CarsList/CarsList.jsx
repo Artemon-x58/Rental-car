@@ -1,20 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import { ListItem } from "../listItem/listItem";
 import { BtnLoadMore, List } from "./CarsList.styled";
-import { useEffect } from "react";
-import { fetchCars } from "../../redux/operations";
+
 import { Container } from "../GlobalStyles/GlobalStyles";
 
-export const CarsList = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchCars());
-  }, [dispatch]);
-
-  const valueSelector = (state) => state.cars.items;
-  const cars = useSelector(valueSelector);
-
+export const CarsList = ({ cars }) => {
   return (
     <Container>
       <List>
@@ -25,4 +15,8 @@ export const CarsList = () => {
       <BtnLoadMore>Load more</BtnLoadMore>
     </Container>
   );
+};
+
+CarsList.propTypes = {
+  cars: PropTypes.array.isRequired,
 };
