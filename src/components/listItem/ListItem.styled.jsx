@@ -56,14 +56,19 @@ export const DescriptionsItem = styled.p`
 `;
 
 export const ButtonItem = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  padding: 12px 99.5px;
+  height: 44px;
+  padding: 12px 97px;
   transition: linear background-color 0.3s;
 
   border-radius: 12px;
   border-color: transparent;
   background-color: #3470ff;
   color: #fff;
+  font-size: 14px;
   font-weight: 600;
   line-height: 1.42;
 

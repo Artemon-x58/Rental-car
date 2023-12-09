@@ -1,20 +1,19 @@
 import styled from "styled-components";
 
 export const List = styled.ul`
-  /* display: grid;
-  grid-template-columns: repeat(4, calc(25% - 29px));
-  gap: 50px 29px; */
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   row-gap: 50px;
   column-gap: 29px;
+  padding-bottom: 100px;
 `;
 
 export const BtnLoadMore = styled.button`
   display: block;
   margin-left: auto;
   margin-right: auto;
+  padding-bottom: 30px;
   transition: linear color 0.3s;
 
   border: none;

@@ -4,7 +4,7 @@ import Select from "react-select";
 export const FiltersContainer = styled.div`
   display: flex;
   align-items: center;
-  padding-top: 150px;
+  padding-top: 50px;
   padding-left: 128px;
   padding-right: 128px;
   max-width: 1440px;

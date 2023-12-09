@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
   BrendLabel,
   BrendSelect,
@@ -21,7 +22,7 @@ import {
   setMileageTo,
 } from "../../redux/filterSlice";
 
-export const Filters = () => {
+export const Filters = ({ onClick }) => {
   const dispatch = useDispatch();
 
   const handleChangeMake = (selectedOption) => {
@@ -85,7 +86,10 @@ export const Filters = () => {
         <FilterMileageTo onChange={handleMileageTo} />
       </WrapperFromAndTo>
 
-      <FilterButton>Search</FilterButton>
+      <FilterButton onClick={onClick}>Search</FilterButton>
     </FiltersContainer>
   );
+};
+Filters.propTypes = {
+  onClick: PropTypes.func.isRequired,
 };

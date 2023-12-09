@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { ListItem } from "../listItem/listItem";
-import { BtnLoadMore, List } from "./CarsList.styled";
+import { List } from "./CarsList.styled";
 
 import { Container } from "../GlobalStyles/GlobalStyles";
 
@@ -12,7 +12,6 @@ export const CarsList = ({ cars }) => {
           <ListItem key={car.id} car={car} />
         ))}
       </List>
-      <BtnLoadMore>Load more</BtnLoadMore>
     </Container>
   );
 };

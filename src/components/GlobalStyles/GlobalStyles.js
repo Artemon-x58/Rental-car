@@ -47,6 +47,6 @@ export const Container = styled.div`
   padding-top: 50px;
   padding-left: 128px;
   padding-right: 128px;
-  max-width: 1440px;
-  margin: 0 auto 100px;
+  max-width: 1184px;
+  margin: 0 auto;
 `;

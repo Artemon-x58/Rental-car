@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { MyModal } from "../Modal/Modal";
 import {
   ButtonItem,
   DescriptionsItem,
@@ -13,10 +14,27 @@ import {
 } from "./ListItem.styled";
 
 import linkIconHeart from "../../icons/symbol-defs.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addOrRemoveToFavorites } from "../../redux/favoritesSlice";
+import { useEffect, useState } from "react";
 
 export const ListItem = ({ car }) => {
+  const [isFavorite, setIsFavorite] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  const valueSelector = (state) => state.favorites.list;
+  const favoritesIcon = useSelector(valueSelector);
+  useEffect(() => {
+    setIsFavorite(favoritesIcon.some((favorite) => favorite.id === car.id));
+  }, [favoritesIcon, car.id]);
+
   const dispatch = useDispatch();
 
   const handleFavoritesClick = () => {
@@ -33,36 +51,50 @@ export const ListItem = ({ car }) => {
     type,
     id,
   } = car;
+
   const [, city, country] = address.match(/,\s*([^,]+),\s*([^,]+)$/);
   return (
-    <Item id={id}>
-      <ImageItem
-        style={{
-          background: `linear-gradient(180deg, rgba(18, 20, 23, 0.50) 2.5%, rgba(18, 20, 23, 0.00) 41.07%), url(${img})`,
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-        }}
-      />
-      <SvgIcon onClick={handleFavoritesClick}>
-        <UseIcon href={`${linkIconHeart}#icon-heart`} />
-      </SvgIcon>
-      <PriceAndYearWrapper>
-        <MakeModelAndYearItem>
-          {make}{" "}
-          {model === "XC90" || model === "XC60" || model === "Enclave" ? (
-            <ModelSpan>{model}</ModelSpan>
-          ) : null}
-          , {year}
-        </MakeModelAndYearItem>
-        <PriceItem>{rentalPrice}</PriceItem>
-      </PriceAndYearWrapper>
+    <>
+      <Item id={id}>
+        <ImageItem
+          style={{
+            background: `linear-gradient(180deg, rgba(18, 20, 23, 0.50) 2.5%, rgba(18, 20, 23, 0.00) 41.07%), url(${img})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+        />
+        <SvgIcon
+          onClick={handleFavoritesClick}
+          style={{
+            fill: isFavorite ? "#3470FF" : "transparent",
+            stroke: isFavorite ? "#3470FF" : "#fff",
+          }}
+        >
+          <UseIcon href={`${linkIconHeart}#icon-heart`} />
+        </SvgIcon>
+        <PriceAndYearWrapper>
+          <MakeModelAndYearItem>
+            {make}{" "}
+            {model === "XC90" || model === "XC60" || model === "Enclave" ? (
+              <ModelSpan>{model}</ModelSpan>
+            ) : (
+              model
+            )}
+            , {year}
+          </MakeModelAndYearItem>
+          <PriceItem>${rentalPrice}</PriceItem>
+        </PriceAndYearWrapper>
 
-      <DescriptionsItem>
-        {city} | {country} | {rentalCompany} | {type} | {make} | {id}
-        {/* {functionalities[0]} */}
-      </DescriptionsItem>
-      <ButtonItem>Learn more</ButtonItem>
-    </Item>
+        <DescriptionsItem>
+          {city} | {country} | {rentalCompany} | {type} | {make} | {id}
+          {/* {functionalities[0]} */}
+        </DescriptionsItem>
+        <ButtonItem onClick={openModal}>Learn more</ButtonItem>
+      </Item>
+      {isModalOpen && (
+        <MyModal isOpen={isModalOpen} closeModal={closeModal} car={car} />
+      )}
+    </>
   );
 };
 

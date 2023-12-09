@@ -1,24 +1,50 @@
 import { useDispatch, useSelector } from "react-redux";
 import { CarsList } from "../components/CarsList/CarsList";
 import { Filters } from "../components/Filters/Filters";
-import { MyModal } from "../components/Modal/Modal";
-import { fetchCars } from "../redux/operations";
-import { useEffect } from "react";
+import { fetchCars, filterCarsByMake, loadMoreCars } from "../redux/operations";
+import { useEffect, useState } from "react";
+import { BtnLoadMore } from "../components/CarsList/CarsList.styled";
 
 export const CatalogPage = () => {
   const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 12;
+  const [hasMoreCars, setHasMoreCars] = useState(true);
 
   useEffect(() => {
-    dispatch(fetchCars());
+    dispatch(fetchCars({ page: 1, pageSize: pageSize })).then((data) => {
+      data.payload.length < 12 ? setHasMoreCars(false) : setHasMoreCars(true);
+    });
   }, [dispatch]);
 
   const valueSelector = (state) => state.cars.items;
+  const valueMakeSelector = (state) => state.filter.make;
+  const make = useSelector(valueMakeSelector);
   const cars = useSelector(valueSelector);
+
+  const handleSearchFilters = () => {
+    dispatch(filterCarsByMake({ make })).then((data) => {
+      data.payload.length < 12 ? setHasMoreCars(false) : setHasMoreCars(true);
+    });
+  };
+
+  const handleLoadMore = () => {
+    const nextPage = currentPage + 1;
+    setCurrentPage(nextPage);
+    dispatch(loadMoreCars({ page: nextPage, pageSize: pageSize })).then(
+      (data) => {
+        data.payload.length < 12 ? setHasMoreCars(false) : setHasMoreCars(true);
+      }
+    );
+  };
+
   return (
     <>
-      <Filters />
+      <Filters onClick={handleSearchFilters} />
       <CarsList cars={cars} />
-      <MyModal />
+      {hasMoreCars && (
+        <BtnLoadMore onClick={handleLoadMore}>Load more</BtnLoadMore>
+      )}
     </>
   );
 };
