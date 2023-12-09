@@ -1,13 +1,11 @@
 import PropTypes from "prop-types";
 import {
   BrendLabel,
-  BrendSelect,
   FilterButton,
   FilterMileageFrom,
   FilterMileageLabel,
   FilterMileageTo,
   PriceLabel,
-  PriceSelect,
   FiltersContainer,
   WrapperFromAndTo,
   BrendWrapper,
@@ -21,6 +19,7 @@ import {
   setPrice,
   setMileageTo,
 } from "../../redux/filterSlice";
+import Select from "react-select";
 
 export const Filters = ({ onClick }) => {
   const dispatch = useDispatch();
@@ -63,18 +62,42 @@ export const Filters = ({ onClick }) => {
     <FiltersContainer>
       <BrendWrapper>
         <BrendLabel htmlFor="brend">Car brand</BrendLabel>
-        <BrendSelect
+        <Select
           options={optionsBrend}
           name="brend"
           onChange={handleChangeMake}
+          placeholder={"Enter the text"}
+          styles={{
+            control: (baseStyles) => ({
+              ...baseStyles,
+
+              height: "48px",
+              width: "224px",
+              borderRadius: "14px",
+              backgroundColor: "#F7F7FB",
+              borderColor: "transparent",
+            }),
+          }}
         />
       </BrendWrapper>
       <PriceWrapper>
         <PriceLabel htmlFor="price">Price/ 1 hour</PriceLabel>
-        <PriceSelect
+        <Select
           options={optionsPrice}
           name="price"
           onChange={handleChangePrice}
+          placeholder={"To $"}
+          styles={{
+            control: (baseStyles) => ({
+              ...baseStyles,
+
+              height: "48px",
+              width: "125px",
+              borderRadius: "14px",
+              backgroundColor: "#F7F7FB",
+              borderColor: "transparent",
+            }),
+          }}
         />
       </PriceWrapper>
 
@@ -82,8 +105,12 @@ export const Filters = ({ onClick }) => {
         <FilterMileageLabel htmlFor="mileage">
           Сar mileage / km
         </FilterMileageLabel>
-        <FilterMileageFrom name="mileage" onChange={handleMileageFrom} />
-        <FilterMileageTo onChange={handleMileageTo} />
+        <FilterMileageFrom
+          placeholder={"From"}
+          name="mileage"
+          onChange={handleMileageFrom}
+        />
+        <FilterMileageTo placeholder={"To"} onChange={handleMileageTo} />
       </WrapperFromAndTo>
 
       <FilterButton onClick={onClick}>Search</FilterButton>
