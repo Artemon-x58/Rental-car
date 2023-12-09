@@ -19,8 +19,15 @@ export const CatalogPage = () => {
 
   const valueSelector = (state) => state.cars.items;
   const valueMakeSelector = (state) => state.filter.make;
+  const valueSelectorPrice = (state) => state.filter.price;
+  const price = useSelector(valueSelectorPrice);
   const make = useSelector(valueMakeSelector);
-  const cars = useSelector(valueSelector);
+
+  let cars = useSelector(valueSelector);
+
+  if (price !== "") {
+    cars = cars.filter((car) => Number(car.rentalPrice) <= price);
+  }
 
   const handleSearchFilters = () => {
     dispatch(filterCarsByMake({ make })).then((data) => {

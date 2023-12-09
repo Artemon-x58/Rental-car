@@ -31,6 +31,7 @@ export const ImageItem = styled.div`
 export const PriceAndYearWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 8px;
 `;
 
