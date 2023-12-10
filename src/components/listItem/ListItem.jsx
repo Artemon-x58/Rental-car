@@ -17,6 +17,7 @@ import linkIconHeart from "../../icons/symbol-defs.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { addOrRemoveToFavorites } from "../../redux/favoritesSlice";
 import { useEffect, useState } from "react";
+import { selectFavorites } from "../../redux/selectors";
 
 export const ListItem = ({ car }) => {
   const [isFavorite, setIsFavorite] = useState();
@@ -29,8 +30,8 @@ export const ListItem = ({ car }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  const valueSelector = (state) => state.favorites.list;
-  const favoritesIcon = useSelector(valueSelector);
+
+  const favoritesIcon = useSelector(selectFavorites);
   useEffect(() => {
     setIsFavorite(favoritesIcon.some((favorite) => favorite.id === car.id));
   }, [favoritesIcon, car.id]);

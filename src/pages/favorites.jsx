@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { CarsList } from "../components/CarsList/CarsList";
 import { FavoritesPlaceholder } from "../components/FavoritesPlaceholder/FavoritesPlaceholder";
+import { selectFavorites } from "../redux/selectors";
 
-export const Favorites = () => {
-  const valueSelector = (state) => state.favorites.list;
-  const cars = useSelector(valueSelector);
+const Favorites = () => {
+  const cars = useSelector(selectFavorites);
 
   return (
     <>
@@ -12,3 +12,5 @@ export const Favorites = () => {
     </>
   );
 };
+
+export default Favorites;

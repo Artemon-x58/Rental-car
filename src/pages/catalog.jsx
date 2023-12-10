@@ -4,10 +4,15 @@ import { Filters } from "../components/Filters/Filters";
 import { fetchCars, filterCarsByMake, loadMoreCars } from "../redux/operations";
 import { useEffect, useState } from "react";
 
-import { selectIsLoading } from "../redux/selectors";
+import {
+  selectCars,
+  selectIsLoading,
+  selectMake,
+  selectPrice,
+} from "../redux/selectors";
 import { Circles } from "react-loader-spinner";
 
-export const CatalogPage = () => {
+const CatalogPage = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 12;
@@ -19,14 +24,11 @@ export const CatalogPage = () => {
     });
   }, [dispatch]);
 
-  const valueSelector = (state) => state.cars.items;
-  const valueMakeSelector = (state) => state.filter.make;
-  const valueSelectorPrice = (state) => state.filter.price;
-  const price = useSelector(valueSelectorPrice);
-  const make = useSelector(valueMakeSelector);
+  const price = useSelector(selectPrice);
+  const make = useSelector(selectMake);
   const isLoading = useSelector(selectIsLoading);
 
-  let cars = useSelector(valueSelector);
+  let cars = useSelector(selectCars);
 
   if (price !== "") {
     cars = cars.filter((car) => Number(car.rentalPrice) <= price);
@@ -74,3 +76,5 @@ export const CatalogPage = () => {
     </>
   );
 };
+
+export default CatalogPage;

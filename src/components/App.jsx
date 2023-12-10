@@ -1,9 +1,11 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { GlobalStyles } from "./GlobalStyles/GlobalStyles";
-import { CatalogPage } from "../pages/catalog";
-import { Favorites } from "../pages/favorites";
 import { Layout } from "./Layout/Layout";
-import { HomePage } from "../pages/home";
+import { lazy } from "react";
+
+const HomePage = lazy(() => import("../pages/home"));
+const CatalogPage = lazy(() => import("../pages/catalog"));
+const Favorites = lazy(() => import("../pages/favorites"));
 
 function App() {
   return (

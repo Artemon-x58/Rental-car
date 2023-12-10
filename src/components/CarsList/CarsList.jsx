@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
-import { ListItem } from "../listItem/listItem";
+
 import { BtnLoadMore, List } from "./CarsList.styled";
 
 import { Container } from "../GlobalStyles/GlobalStyles";
+import { ListItem } from "../listItem/ListItem";
 
 export const CarsList = ({ cars, hasMoreCars, onClick }) => {
   return (
@@ -19,6 +20,6 @@ export const CarsList = ({ cars, hasMoreCars, onClick }) => {
 
 CarsList.propTypes = {
   cars: PropTypes.array.isRequired,
-  hasMoreCars: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  hasMoreCars: PropTypes.bool,
+  onClick: PropTypes.func,
 };
