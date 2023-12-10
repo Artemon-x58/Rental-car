@@ -75,6 +75,7 @@ export const FilterMileageFrom = styled.input`
   height: 20px;
   padding: 14px 24px;
 
+  outline: none;
   border-radius: 14px 0px 0px 14px;
   border-color: transparent;
   border-right: 1px solid rgba(138, 138, 137, 0.2);
@@ -84,8 +85,10 @@ export const FilterMileageFrom = styled.input`
 
 export const FilterMileageTo = styled.input`
   width: 160px;
-  height: 48px;
+  height: 20px;
+  padding: 14px 24px;
 
+  outline: none;
   border-radius: 0px 14px 14px 0px;
   background: #f7f7fb;
   color: #121417;

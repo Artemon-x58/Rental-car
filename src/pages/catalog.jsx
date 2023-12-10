@@ -3,7 +3,9 @@ import { CarsList } from "../components/CarsList/CarsList";
 import { Filters } from "../components/Filters/Filters";
 import { fetchCars, filterCarsByMake, loadMoreCars } from "../redux/operations";
 import { useEffect, useState } from "react";
-import { BtnLoadMore } from "../components/CarsList/CarsList.styled";
+
+import { selectIsLoading } from "../redux/selectors";
+import { Circles } from "react-loader-spinner";
 
 export const CatalogPage = () => {
   const dispatch = useDispatch();
@@ -22,6 +24,7 @@ export const CatalogPage = () => {
   const valueSelectorPrice = (state) => state.filter.price;
   const price = useSelector(valueSelectorPrice);
   const make = useSelector(valueMakeSelector);
+  const isLoading = useSelector(selectIsLoading);
 
   let cars = useSelector(valueSelector);
 
@@ -48,9 +51,25 @@ export const CatalogPage = () => {
   return (
     <>
       <Filters onClick={handleSearchFilters} />
-      <CarsList cars={cars} />
-      {hasMoreCars && (
-        <BtnLoadMore onClick={handleLoadMore}>Load more</BtnLoadMore>
+      {isLoading ? (
+        <Circles
+          height="80"
+          width="80"
+          color="blue"
+          ariaLabel="circles-loading"
+          wrapperStyle={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100vh",
+          }}
+        />
+      ) : (
+        <CarsList
+          cars={cars}
+          hasMoreCars={hasMoreCars}
+          onClick={handleLoadMore}
+        />
       )}
     </>
   );

@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { CarsList } from "../components/CarsList/CarsList";
+import { FavoritesPlaceholder } from "../components/FavoritesPlaceholder/FavoritesPlaceholder";
 
 export const Favorites = () => {
   const valueSelector = (state) => state.favorites.list;
@@ -7,7 +8,7 @@ export const Favorites = () => {
 
   return (
     <>
-      <CarsList cars={cars} />
+      {cars.length !== 0 ? <CarsList cars={cars} /> : <FavoritesPlaceholder />}
     </>
   );
 };
