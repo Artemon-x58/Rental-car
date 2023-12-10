@@ -64,6 +64,7 @@ export const Filters = ({ onClick }) => {
         <BrendLabel htmlFor="brend">Car brand</BrendLabel>
         <Select
           options={optionsBrend}
+          id="brend"
           name="brend"
           onChange={handleChangeMake}
           placeholder={"Enter the text"}
@@ -85,6 +86,7 @@ export const Filters = ({ onClick }) => {
         <Select
           options={optionsPrice}
           name="price"
+          id="price"
           onChange={handleChangePrice}
           placeholder={"To $"}
           styles={{
@@ -102,15 +104,20 @@ export const Filters = ({ onClick }) => {
       </PriceWrapper>
 
       <WrapperFromAndTo>
-        <FilterMileageLabel htmlFor="mileage">
+        <FilterMileageLabel htmlFor="mileageFrom">
           Сar mileage / km
         </FilterMileageLabel>
         <FilterMileageFrom
           placeholder={"From"}
-          name="mileage"
+          id="mileageFrom"
+          name="mileage" // Сохраните атрибут name, если он необходим
           onChange={handleMileageFrom}
         />
-        <FilterMileageTo placeholder={"To"} onChange={handleMileageTo} />
+        <FilterMileageTo
+          placeholder={"To"}
+          id="mileageTo"
+          onChange={handleMileageTo}
+        />
       </WrapperFromAndTo>
 
       <FilterButton onClick={onClick}>Search</FilterButton>

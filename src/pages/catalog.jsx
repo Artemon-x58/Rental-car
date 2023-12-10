@@ -1,58 +1,48 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Circles } from "react-loader-spinner";
 import { CarsList } from "../components/CarsList/CarsList";
 import { Filters } from "../components/Filters/Filters";
 import { fetchCars, filterCarsByMake, loadMoreCars } from "../redux/operations";
-import { useEffect, useState } from "react";
-
-import {
-  selectCars,
-  selectIsLoading,
-  selectMake,
-  selectPrice,
-} from "../redux/selectors";
-import { Circles } from "react-loader-spinner";
+import { selectCars, selectIsLoading, selectMake } from "../redux/selectors";
 
 const CatalogPage = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 12;
   const [hasMoreCars, setHasMoreCars] = useState(true);
 
-  useEffect(() => {
-    dispatch(fetchCars({ page: 1, pageSize: pageSize })).then((data) => {
-      data.payload.length < 12 ? setHasMoreCars(false) : setHasMoreCars(true);
-    });
-  }, [dispatch]);
-
-  const price = useSelector(selectPrice);
+  const pageSize = 12;
   const make = useSelector(selectMake);
   const isLoading = useSelector(selectIsLoading);
+  const cars = useSelector(selectCars);
 
-  let cars = useSelector(selectCars);
+  useEffect(() => {
+    loadInitialData();
+  }, []);
 
-  if (price !== "") {
-    cars = cars.filter((car) => Number(car.rentalPrice) <= price);
-  }
-
-  const handleSearchFilters = () => {
-    dispatch(filterCarsByMake({ make })).then((data) => {
-      data.payload.length < 12 ? setHasMoreCars(false) : setHasMoreCars(true);
-    });
+  const loadInitialData = () => {
+    dispatch(fetchCars({ page: 1, pageSize }))
+      .then(({ payload }) => setHasMoreCars(payload.length === pageSize))
+      .catch((error) => console.error("Error loading initial data:", error));
   };
 
-  const handleLoadMore = () => {
+  const filterCars = () => {
+    dispatch(filterCarsByMake({ make }))
+      .then(({ payload }) => setHasMoreCars(payload.length === pageSize))
+      .catch((error) => console.error("Error filtering cars:", error));
+  };
+
+  const loadMore = () => {
     const nextPage = currentPage + 1;
     setCurrentPage(nextPage);
-    dispatch(loadMoreCars({ page: nextPage, pageSize: pageSize })).then(
-      (data) => {
-        data.payload.length < 12 ? setHasMoreCars(false) : setHasMoreCars(true);
-      }
-    );
+    dispatch(loadMoreCars({ page: nextPage, pageSize }))
+      .then(({ payload }) => setHasMoreCars(payload.length === pageSize))
+      .catch((error) => console.error("Error loading more cars:", error));
   };
 
   return (
     <>
-      <Filters onClick={handleSearchFilters} />
+      <Filters onClick={filterCars} />
       {isLoading ? (
         <Circles
           height="80"
@@ -67,11 +57,7 @@ const CatalogPage = () => {
           }}
         />
       ) : (
-        <CarsList
-          cars={cars}
-          hasMoreCars={hasMoreCars}
-          onClick={handleLoadMore}
-        />
+        <CarsList cars={cars} hasMoreCars={hasMoreCars} onClick={loadMore} />
       )}
     </>
   );
