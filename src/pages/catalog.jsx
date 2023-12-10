@@ -20,18 +20,17 @@ const CatalogPage = () => {
   const pageSize = 12;
   const [hasMoreCars, setHasMoreCars] = useState(true);
 
-  useEffect(() => {
-    dispatch(fetchCars({ page: 1, pageSize: pageSize })).then((data) => {
-      data.payload.length < 12 ? setHasMoreCars(false) : setHasMoreCars(true);
-    });
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchCars({ page: 1, pageSize: pageSize })).then((data) => {
+  //     data.payload.length < 12 ? setHasMoreCars(false) : setHasMoreCars(true);
+  //   });
+  // }, [dispatch]);
 
   const price = useSelector(selectPrice);
   const make = useSelector(selectMake);
   const isLoading = useSelector(selectIsLoading);
   const mileageFrom = useSelector(selectMileageFrom);
   const mileageTo = useSelector(selectMileageTo);
-  console.log(mileageTo);
 
   let cars = useSelector(selectCars);
 
