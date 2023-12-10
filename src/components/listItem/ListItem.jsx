@@ -88,7 +88,6 @@ export const ListItem = ({ car }) => {
 
         <DescriptionsItem>
           {city} | {country} | {rentalCompany} | {type} | {make} | {id}
-          {/* {functionalities[0]} */}
         </DescriptionsItem>
         <ButtonItem onClick={openModal}>Learn more</ButtonItem>
       </Item>

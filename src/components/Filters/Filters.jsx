@@ -110,7 +110,7 @@ export const Filters = ({ onClick }) => {
         <FilterMileageFrom
           placeholder={"From"}
           id="mileageFrom"
-          name="mileage" // Сохраните атрибут name, если он необходим
+          name="mileage"
           onChange={handleMileageFrom}
         />
         <FilterMileageTo

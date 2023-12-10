@@ -1,5 +1,4 @@
 import styled from "styled-components";
-// import { FaRegHeart } from "react-icons/fa";
 
 export const Item = styled.li`
   position: relative;
